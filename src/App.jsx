@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Analytics } from '@vercel/analytics/react'; 
 
 export default function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -16,6 +17,7 @@ export default function App() {
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-sm text-center">
         {isAuthenticated ? (
           <div>
+               <Analytics />
             <img src={user.picture} alt={user.name} className="w-24 h-24 rounded-full mx-auto border-4 border-blue-500 shadow-lg"/>
             <h2 className="text-xl font-semibold text-gray-800 mt-4">{user.name}</h2>
             <p className="text-gray-600">{user.email}</p>
