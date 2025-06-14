@@ -2,12 +2,29 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Analytics } from '@vercel/analytics/react'; 
 
 export default function App() {
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
+  const { loginWithRedirect, logout, user, isAuthenticated, isLoading, error } = useAuth0();
 
   if (isLoading) {
     return (
       <div className="flex h-screen justify-center items-center bg-gray-900 text-white">
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-screen justify-center items-center bg-gray-900 text-white">
+        <div className="bg-red-600 shadow-lg rounded-xl p-6 max-w-md">
+          <h2 className="text-xl font-bold mb-2">Authentication Error</h2>
+          <p>{error.message}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-white text-red-600 rounded-full shadow-md hover:bg-gray-100 transition"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }
